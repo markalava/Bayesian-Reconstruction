@@ -1,0 +1,7 @@
+*~
+*.Rout
+.Rhistory
+Rplots.pdf
+.RData
+.pdf
+.csv
