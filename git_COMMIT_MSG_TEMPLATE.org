@@ -1,0 +1,12 @@
+# -*- buffer-read-only: t; -*-
+#+OPTIONS: toc:nil
+
+[SUMMARY HERE]
+
+* Sample From Prior
+
+* Estimation
+
+* Tuning & Diagnostics
+
+* Summarization & Plots

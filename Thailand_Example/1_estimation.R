@@ -64,7 +64,6 @@ results.path <- "results"
 example(source, echo = FALSE)
 sourceDir(prog.path)
 
-
 ### * Inputs
 ################################################################################
 
@@ -79,35 +78,20 @@ load(file.path(data.path, "thai_initial_ests.RData"))
 ### Inverse Gamma parameters
 ###
 
-## Absolute deviation with 90 percent probability
-
-absDev.f <- log(1.1)
-absDev.s <- log(1.4)
-absDev.g <- 0.2
-absDev.n <- log(1.1)
-absDev.srb <- log(1.1)
-
 invGam.params <-
-    list(al.f = 0.5
-         ,be.f = absDev.beta(absDev.f, prob = 0.9, alpha = 0.5)
-         ,al.s = 0.5
-         ,be.s = absDev.beta(absDev.s, prob = 0.9, alpha = 0.5)
-         ,al.g = 0.5
-         ,be.g = absDev.beta(absDev.g, prob = 0.9, alpha = 0.5)
-         ,al.n = 0.5
-         ,be.n = absDev.beta(absDev.n, prob = 0.9, alpha = 0.5)
-         ,al.srb = 0.5
-         ,be.srb = absDev.beta(absDev.srb, prob = 0.9, alpha = 0.5)
-         )
+    make.hyper.params(absDev = list(fert = 0.1, surv = 0.1, mig = 0.2
+             ,pop = 0.1, srb = 0.1)
+             ,prob = list(fert = 0.9, surv = 0.9, mig = 0.9, pop = 0.9, srb = 0.9)
+             ,alpha = list(fert = 0.5, surv = 0.5, mig = 0.5, pop = 0.5, srb = 0.5)
+             ,s.star = unlist(asSurvTHAI.mat)
+             )
 
 invGam.params
-
 
 ### ** Proposal variances
 ################################################################################
 
 withVisible(load(file = file.path("data", "thai_propvars.RData")))$value
-
 
 ### ** Estimation arguments
 ################################################################################
@@ -155,7 +139,6 @@ estModArgs <-
        ,v.prop.type = "MH.scaled"
        ,save.mid.run.name = "Thai"
     )
-
 
 ### * Run Estimation
 ################################################################################
