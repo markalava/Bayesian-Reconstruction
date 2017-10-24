@@ -61,6 +61,8 @@ data.path <- "data"
 prog.path <- "R_Code"
 results.path <- "results"
 
+if(!file.exists(results.path)) dir.create(results.path)
+
 example(source, echo = FALSE)
 sourceDir(prog.path)
 
