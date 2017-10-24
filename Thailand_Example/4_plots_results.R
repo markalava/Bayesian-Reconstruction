@@ -59,6 +59,10 @@ data.path <- "data"
 prog.path <- "R_Code"
 results.path <- "results"
 
+if(!file.exists(file.path("results", "plots"))) {
+    dir.create(file.path("results", "plots"), recursive = TRUE)
+    }
+
 example(source, echo = FALSE)
 sourceDir(prog.path)
 

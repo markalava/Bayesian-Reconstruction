@@ -49,6 +49,7 @@ set.seed(1)
 
 library(ggplot2)
 ## theme_set(theme_bw())
+library(ff)
 library(lattice)
 library(coda)
 library(gdata)
