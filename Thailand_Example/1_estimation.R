@@ -53,6 +53,10 @@ burn.in <- 1E3
 ### * SET UP
 ################################################################################
 
+
+## !!! SET YOUR WORKING DIRECTORY !!!
+
+
 set.seed(1)
 
 library(coda)
