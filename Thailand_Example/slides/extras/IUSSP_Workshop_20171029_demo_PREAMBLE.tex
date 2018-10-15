@@ -1,0 +1,353 @@
+%%% ------------------------------------------------------------------
+%%% LAYOUT, SPACING
+%%% ------------------------------------------------------------------
+
+%%%
+%%% CHANGE DEFAULTS FOR BASIC SPACING, ALIGNMENT, SIZES, ETC.
+%%%
+
+%%
+%% Spacing in and around figures
+%%
+
+%
+% Reduce spacing above and below figures
+%
+\let\oldfigure\figure
+\let\endoldfigure\endfigure
+\renewenvironment{figure}%
+{\begin{oldfigure}\vspace{-3ex}%
+}%
+{\end{oldfigure}\vspace{-3ex}%
+}
+
+%
+% Captions
+%
+% \let\oldabovecaptionskip\abovecaptionskip
+\addtolength{\abovecaptionskip}{-2ex}
+\setbeamerfont{caption}{size=\scriptsize}
+
+
+%%
+%% Get line breaking in tt
+%%
+
+\newcommand*\justify{%
+  \fontdimen2\font=0.4em% interword space
+  \fontdimen3\font=0.2em% interword stretch
+  \fontdimen4\font=0.1em% interword shrink
+  \fontdimen7\font=0.1em% extra space
+  \hyphenchar\font=`\-% allowing hyphenation
+}%
+
+
+%%%
+%%% INSERT SECTION HEADER SLIDES
+%%%
+
+\newcommand{\sectiontitlepage}{%
+\begin{frame}[plain]
+\vfill
+\begin{center}
+\LARGE \bfseries \structure{
+\insertsection}%
+  \addtocounter{framenumber}{-1}
+\end{center}
+\vfill
+\end{frame}
+}
+
+\newcommand{\subsectiontitlepage}{%
+\begin{frame}[plain]
+\vfill
+\begin{center}
+{\Large \itshape \structure{
+\insertsubsection}%
+}
+  \addtocounter{framenumber}{-1}
+\end{center}
+\vfill
+\end{frame}
+}
+
+\newcommand{\subsubsectiontitlepage}{%
+\begin{frame}[plain]
+\vfill
+\begin{center}
+{\large \structure{
+\insertsubsubsection}%
+}
+  \addtocounter{framenumber}{-1}
+\end{center}
+\vfill
+\end{frame}
+}
+
+
+%%% ------------------------------------------------------------------
+%%% APPEARENCE TWEAKS
+%%% ------------------------------------------------------------------
+
+%%
+%% Fonts
+%%
+
+\usepackage{lmodern}
+\usepackage{fixmath}
+
+
+%%
+%% FOR SIMPLER FRAMETITLES
+%%
+
+\setbeamertemplate{frametitle}
+{
+\begin{centering}
+\textbf{\usebeamercolor[bg]{frametitle} \insertframetitle}
+\par
+\end{centering}
+}
+\setbeamertemplate{headline}{%
+\begin{beamercolorbox}[wd=\paperwidth,ht=2ex,dp=1ex,right]{}%
+\end{beamercolorbox}}%
+
+%%
+%% COLOR THEMES
+%%
+
+\usecolortheme{whale}
+
+%%
+%% OUTER THEMES
+%%
+
+\setbeamertemplate{navigation symbols}{} % gets rid of navigation symbols
+\setbeamertemplate{footline}{} % gets rid of bottom info lines
+\setbeamertemplate{footline}{%
+\begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex]{}%
+  \color{gray}\hspace*{2ex}\insertsection\qquad \insertsubsection\qquad\insertsubsubsection\hfill\insertframenumber\hspace*{2ex}
+\end{beamercolorbox}}           % PAGE NUMBERS W/O TOTAL PAGES
+
+%%
+%% INNER THEMES
+%%
+
+\useinnertheme{circles}
+
+%%
+%% NOTE PAGES
+%%
+
+\setbeamertemplate{note page}[compress]
+\setbeamerfont{note page}{size=\footnotesize}
+ \setbeameroption{show notes}
+% \setbeameroption{show only notes}
+
+%%
+%% For Handouts
+%%
+
+\mode<handout>{%
+  \usepackage{pgfpages}%
+  \pgfpagesuselayout{4 on 1}[letterpaper,landscape,border shrink=5mm]%
+  \setbeamercolor{background canvas}{bg=black!2}%
+}
+
+%%
+%% OTHER OPTIONS
+%%
+
+\setbeamertemplate{frametitle continuation}[from second][ ] %no continuation numbers
+
+
+%%% ------------------------------------------------------------------
+%%% PDF SPECIFIC
+%%% ------------------------------------------------------------------
+
+%%%
+%%% Frametitles in pdf bookmarks
+%%%
+
+% from: http://tex.stackexchange.com/questions/17230/beamer-how-to-make-each-frame-appear-in-the-pdf-toc
+
+\usepackage{bookmark}
+\usepackage{etoolbox}
+\makeatletter
+\apptocmd{\beamer@@frametitle}{
+  \bookmark[page=\the\c@page,level=4]{#1}
+  }%
+  {\message{** patching of \string\beamer@@frametitle succeeded **}}%
+  {\message{** patching of \string\beamer@@frametitle failed **}}%
+\makeatother
+
+
+%%% ------------------------------------------------------------------
+%%% USEFUL PACAKGES
+%%% ------------------------------------------------------------------
+
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage{fancyvrb}
+\usepackage{rotating}
+
+%% Graphics extensions
+\DeclareGraphicsExtensions{.png,.gif,.pdf}
+
+%% XY pic
+\usepackage{etex}
+\usepackage[all]{xy}        % MUST load etex package as FIRST package
+
+%% Tables
+\usepackage{tabulary}
+\usepackage{threeparttable}
+\usepackage{colortbl}
+
+
+%%% ------------------------------------------------------------------
+%%% BIBLIOGRAPHY
+%%% ------------------------------------------------------------------
+
+% biblatex/biber seem to cause problems.
+
+\usepackage[round]{natbib}
+
+
+%%% ------------------------------------------------------------------
+%%% NEW COMMANDS
+%%% ------------------------------------------------------------------
+
+%%%
+%%% LISTS
+%%%
+
+% Itemize with labels
+\newcommand\litem[1]{\item{\bfseries #1\enspace}}
+
+
+%%%
+%%% FORMATTING
+%%%
+
+% nowns (e.g., names of books, etc.)
+\newcommand\Noun[1]{\emph{#1}}
+
+% software packages
+\newcommand\sware[1]{\emph{#1}}
+
+%%%
+%%% GRAPHICS WIDTHS
+%%%
+
+\newcommand{\GinTextwidth}{\setkeys{Gin}{keepaspectratio=true,width=\textwidth}}
+\newcommand{\GinTextWidth}{\GinTextwidth}
+\newcommand{\GinKARWid}[1]{\setkeys{Gin}{keepaspectratio=true,width=#1}}
+\newcommand{\GinKARWidth}[1]{\setkeys{Gin}{keepaspectratio=true,width=#1}}
+
+
+%%% ------------------------------------------------------------------
+%%% NEW ENVIRONMENTS
+%%% ------------------------------------------------------------------
+
+%%
+%% Additions
+%%
+
+\newenvironment{added}{\color{DodgerBlue4}}{}
+
+
+%%% ------------------------------------------------------------------
+%%% TEXT MACROS
+%%% ------------------------------------------------------------------
+
+%%%
+%%% MATHS OPERATORS AND SYMBOLS
+%%%
+
+\usepackage{amsmath}
+
+% Mathematical symbols
+\newcommand{\norm}[1]{\lVert#1\rVert}
+\newcommand{\cond}{\, \vert\, }
+\newcommand{\ud}{\mathrm{d}}
+
+\newcommand{\ci}{\perp\!\!\!\perp}
+\newcommand\independent{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+
+%'_c_o_v_ariance _m_atrix
+\newcommand{\cvm}{\makebox[0.38\width][l]{\ensuremath{\Sigma}}\raisebox{0.1\height}{\ensuremath{\vert}}}
+
+% Vectors, matrices
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\mat}[1]{\pmb{\mathrm{#1}}}
+
+% Mathematical operators
+\DeclareMathOperator{\logit}{logit}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\odds}{odds}
+\DeclareMathOperator{\Beta}{B}
+
+
+% Statistical operators
+\DeclareMathOperator{\E}{E}
+\DeclareMathOperator{\var}{Var}
+\DeclareMathOperator{\cor}{Cor}
+\DeclareMathOperator{\cov}{Cov}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cor}{Cor}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator*{\median}{median}
+% \DeclareMathOperator*{\mode}{mode}
+\DeclareMathOperator*{\MAD}{MAD}
+\DeclareMathOperator*{\MARE}{MARE}
+\DeclareMathOperator*{\QAD}{QAD}
+
+% Distributions
+\DeclareMathOperator{\dUnif}{Unif}
+\DeclareMathOperator{\dNorm}{Normal}
+\DeclareMathOperator{\dMVNorm}{MVNormal}
+\DeclareMathOperator{\dTruncNorm}{TruncNormal}
+\DeclareMathOperator{\dLogistNorm}{LogisticNormal}
+\DeclareMathOperator{\dExpo}{Expo}
+\DeclareMathOperator{\dGamma}{Gamma}
+\DeclareMathOperator{\dInvGamma}{InvGamma}
+\DeclareMathOperator{\dLogNormal}{logNormal}
+\DeclareMathOperator{\dBeta}{Beta}
+\DeclareMathOperator{\dBin}{Bin}
+\DeclareMathOperator{\dMult}{Mult}
+\DeclareMathOperator{\dPois}{Pois}
+\DeclareMathOperator{\dStudT}{{\it t\/}}
+
+
+%%%
+%%% DEMOGRAPHIC PARAMETERS
+%%%
+
+\newcommand{\ltp}[3]{{_#1}#2_#3}
+\newcommand{\fertL}{{\kappa_L}}
+\newcommand{\fertU}{{\kappa_U}}
+\DeclareMathOperator{\TFR}{TFR}
+
+
+%%%
+%%% OTHER
+%%%
+
+% Possessive cite
+\newcommand{\poscite}[1]{\citeauthor{#1}'s \citeyearpar{#1}}
+
+
+% Question box
+\newcommand{\alertbox}[2]{\fbox{\parbox{\textwidth}{\paragraph*{#1}#2}}}
+
+
+%%% ------------------------------------------------------------------
+%%% GLOSSARY
+%%% ------------------------------------------------------------------
+
+% \usepackage[sanitize=none,shortcuts,nonumberlist,numberedsection=autolabel,hyperfirst=false]{glossaries}
+% \glsdisablehyper
+% \renewcommand*{\glsautoprefix}{sec:glossary-}
+% \loadglsentries{MCWLaTeXGlossary1.tex}
+% \makeglossary
