@@ -87,6 +87,8 @@ quantile <- function(x, probs = seq(0, 1, 0.25), na.rm = TRUE,
 
 graphics.off()
 
+## Directories
+dir.create(file.path("results", "plots", "traceplots"), recursive = TRUE)
 
 ### ############################################################################
 ### * INPUTS: Data, initial estimates, life table columns, etc.
@@ -157,18 +159,18 @@ dev.off()
 ### Variances
 ###
 ###
-bitmap(width = 9, height = 7, units = "in", res = 360, pointsize = 10
+png(width = 9, height = 7, units = "in", res = 360, pointsize = 10
      ,file = "results/plots/traceplots/Thai_var_traceplot_1.png"
     )
 print(plot(variances.mcmc[,1:2]))
 dev.off()
 
-bitmap(width = 9, height = 7, units = "in", res = 360, pointsize = 10
+png(width = 9, height = 7, units = "in", res = 360, pointsize = 10
      ,file = "results/plots/traceplots/Thai_var_traceplot_2.png")
 plot(variances.mcmc[,3:4])
 dev.off()
 
-bitmap(width = 9, height = 7, units = "in", res = 360, pointsize = 10
+png(width = 9, height = 7, units = "in", res = 360, pointsize = 10
      ,file = "results/plots/traceplots/Thai_var_traceplot_3.png")
 print(plot(variances.mcmc[,5,drop=FALSE]))
 dev.off()
@@ -183,14 +185,14 @@ if(ncol(srb.mcmc) > 4) {
 srbVars.seq <- seq(from = 1, to = ncol(srb.mcmc)
                     ,by = 4)
 for(i in 1:(length(srbVars.seq)-1)) {
-  bitmap(width = 9, height = 7, units = "in", res = 360, pointsize = 10
+  png(width = 9, height = 7, units = "in", res = 360, pointsize = 10
       ,file = paste("results/plots/traceplots/Thai_logsrb_traceplot20130612srb10_", i, ".png"
        ,sep = ""))
   print(plot(log(srb.mcmc[,srbVars.seq[i]:
                                             (srbVars.seq[i]+3),drop = FALSE])))
   dev.off()
 }
-bitmap(width = 9, height = 7, units = "in", res = 360, pointsize = 10
+png(width = 9, height = 7, units = "in", res = 360, pointsize = 10
     ,file = paste("results/plots/traceplots/Thai_logsrb_traceplot20130612srb10_",
        length(srbVars.seq), ".png", sep = ""))
 print(plot(log(
@@ -198,7 +200,7 @@ print(plot(log(
                                    ncol(srb.mcmc),drop = FALSE])))
 dev.off()
 } else {
-    bitmap(width = 9, height = 7, units = "in", res = 360, pointsize = 10
+    png(width = 9, height = 7, units = "in", res = 360, pointsize = 10
       ,file = paste("results/plots/traceplots/Thai_logsrb_traceplot20130612srb10.png"
        ,sep = ""))
   print(plot(log(srb.mcmc)))
@@ -214,14 +216,14 @@ dev.off()
 fertVars.seq <- seq(from = 1, to = ncol(fert.rate.mcmc)
                     ,by = 4)
 for(i in 1:(length(fertVars.seq)-1)) {
-  bitmap(width = 9, height = 7, units = "in", res = 360, pointsize = 10
+  png(width = 9, height = 7, units = "in", res = 360, pointsize = 10
       ,file = paste("results/plots/traceplots/Thai_logfert_traceplot20130612srb10_", i, ".png"
        ,sep = ""))
   print(plot(log(fert.rate.mcmc[,fertVars.seq[i]:
                                             (fertVars.seq[i]+3),drop=FALSE])))
   dev.off()
 }
-bitmap(width = 9, height = 7, units = "in", res = 360, pointsize = 10
+png(width = 9, height = 7, units = "in", res = 360, pointsize = 10
     ,file = paste("results/plots/traceplots/Thai_logfert_traceplot20130612srb10_",
        length(fertVars.seq), ".png", sep = ""))
 print(plot(log(
@@ -240,14 +242,14 @@ survVars.seq <- seq(from = 1, to = ncol(surv.prop.mcmc$female)
 
 ## FEMALES
 for(i in 1:(length(survVars.seq)-1)) {
-  bitmap(width = 9, height = 7, units = "in", res = 360, pointsize = 10
+  png(width = 9, height = 7, units = "in", res = 360, pointsize = 10
       ,file = paste("results/plots/traceplots/Thai_logitsurv_traceplot20130612srb10_", i
        ,"_female.png", sep = ""))
   print(plot(logit(surv.prop.mcmc$female[,survVars.seq[i]:
                                             (survVars.seq[i]+3),drop = FALSE])))
   dev.off()
 }
-bitmap(width = 9, height = 7, units = "in", res = 360, pointsize = 10
+png(width = 9, height = 7, units = "in", res = 360, pointsize = 10
     ,file = paste("results/plots/traceplots/Thai_logitsurv_traceplot20130612srb10_",
        length(survVars.seq), "_female.png", sep = ""))
 print(plot(logit(
@@ -257,14 +259,14 @@ dev.off()
 
 ## MALE
 for(i in 1:(length(survVars.seq)-1)) {
-  bitmap(width = 9, height = 7, units = "in", res = 360, pointsize = 10
+  png(width = 9, height = 7, units = "in", res = 360, pointsize = 10
       ,file = paste("results/plots/traceplots/Thai_logitsurv_traceplot20130612srb10_", i, "_male.png"
        , sep = ""))
   print(plot(logit(surv.prop.mcmc$male[,survVars.seq[i]:
                                             (survVars.seq[i]+3),drop = FALSE])))
   dev.off()
 }
-bitmap(width = 9, height = 7, units = "in", res = 360, pointsize = 10
+png(width = 9, height = 7, units = "in", res = 360, pointsize = 10
     ,file = paste("results/plots/traceplots/Thai_logitsurv_traceplot20130612srb10_",
        length(survVars.seq), "_male.png", sep = ""))
 print(plot(logit(
@@ -283,13 +285,13 @@ migVars.seq <- seq(from = 1, to = ncol(mig.prop.mcmc$female)
 
 ## FEMALE
 for(i in 1:(length(migVars.seq)-1)) {
-  bitmap(width = 9, height = 7, units = "in", res = 360, pointsize = 10
+  png(width = 9, height = 7, units = "in", res = 360, pointsize = 10
       ,file = paste("results/plots/traceplots/Thai_mig_traceplot20130612srb10_", i, "_female.png", sep = ""))
   print(plot(mig.prop.mcmc$female[,migVars.seq[i]:
                                             (migVars.seq[i]+3),drop = FALSE]))
   dev.off()
 }
-bitmap(width = 9, height = 7, units = "in", res = 360, pointsize = 10
+png(width = 9, height = 7, units = "in", res = 360, pointsize = 10
     ,file = paste("results/plots/traceplots/Thai_mig_traceplot20130612srb10_",
        length(migVars.seq), "_female.png", sep = ""))
 print(plot(
@@ -299,13 +301,13 @@ dev.off()
 
 ## MALE
 for(i in 1:(length(migVars.seq)-1)) {
-  bitmap(width = 9, height = 7, units = "in", res = 360, pointsize = 10
+  png(width = 9, height = 7, units = "in", res = 360, pointsize = 10
       ,file = paste("results/plots/traceplots/Thai_mig_traceplot20130612srb10_", i, "_male.png", sep = ""))
   print(plot(mig.prop.mcmc$male[,migVars.seq[i]:
                                             (migVars.seq[i]+3),drop = FALSE]))
   dev.off()
 }
-bitmap(width = 9, height = 7, units = "in", res = 360, pointsize = 10
+png(width = 9, height = 7, units = "in", res = 360, pointsize = 10
     ,file = paste("results/plots/traceplots/Thai_mig_traceplot20130612srb10_",
        length(migVars.seq), "_male.png", sep = ""))
 print(plot(
@@ -324,13 +326,13 @@ baselineVars.seq <- seq(from = 1, to = ncol(baseline.count.mcmc$female)
 
 ## FEMALE
 for(i in 1:(length(baselineVars.seq)-1)) {
-  bitmap(width = 9, height = 7, units = "in", res = 360, pointsize = 10
+  png(width = 9, height = 7, units = "in", res = 360, pointsize = 10
       ,file = paste("results/plots/traceplots/Thai_logbaseline_traceplot20130612srb10_", i, "_female.png", sep = ""))
   print(plot(log(baseline.count.mcmc$female[,baselineVars.seq[i]:
                                             (baselineVars.seq[i]+3),drop = FALSE])))
   dev.off()
 }
-bitmap(width = 9, height = 7, units = "in", res = 360, pointsize = 10
+png(width = 9, height = 7, units = "in", res = 360, pointsize = 10
     ,file = paste("results/plots/traceplots/Thai_logbaseline_traceplot20130612srb10_",
        length(baselineVars.seq), "_female.png", sep = ""))
 print(plot(
@@ -340,13 +342,13 @@ dev.off()
 
 ## MALE
 for(i in 1:(length(baselineVars.seq)-1)) {
-  bitmap(width = 9, height = 7, units = "in", res = 360, pointsize = 10
+  png(width = 9, height = 7, units = "in", res = 360, pointsize = 10
       ,file = paste("results/plots/traceplots/Thai_logbaseline_traceplot20130612srb10_", i, "_male.png", sep = ""))
   print(plot(log(baseline.count.mcmc$male[,baselineVars.seq[i]:
                                             (baselineVars.seq[i]+3),drop = FALSE])))
   dev.off()
 }
-bitmap(width = 9, height = 7, units = "in", res = 360, pointsize = 10
+png(width = 9, height = 7, units = "in", res = 360, pointsize = 10
     ,file = paste("results/plots/traceplots/Thai_logbaseline_traceplot20130612srb10_",
        length(baselineVars.seq), "_male.png", sep = ""))
 print(plot(
@@ -365,13 +367,13 @@ lxVars.seq <- seq(from = 1, to = ncol(lx.mcmc$female)
 
 ## FEMALE
 for(i in 1:(length(lxVars.seq)-1)) {
-  bitmap(width = 9, height = 7, units = "in", res = 360, pointsize = 10
+  png(width = 9, height = 7, units = "in", res = 360, pointsize = 10
       ,file = paste("results/plots/traceplots/Thai_lx_traceplot20130612srb10_", i, "_female.png", sep = ""))
   print(plot(lx.mcmc$female[,lxVars.seq[i]:
                                             (lxVars.seq[i]+3),drop = FALSE]))
   dev.off()
 }
-bitmap(width = 9, height = 7, units = "in", res = 360, pointsize = 10
+png(width = 9, height = 7, units = "in", res = 360, pointsize = 10
     ,file = paste("results/plots/traceplots/Thai_lx_traceplot20130612srb10_",
        length(lxVars.seq), "_female.png", sep = ""))
 print(plot(
@@ -381,13 +383,13 @@ dev.off()
 
 ## MALE
 for(i in 1:(length(lxVars.seq)-1)) {
-  bitmap(width = 9, height = 7, units = "in", res = 360, pointsize = 10
+  png(width = 9, height = 7, units = "in", res = 360, pointsize = 10
       ,file = paste("results/plots/traceplots/Thai_lx_traceplot20130612srb10_", i, "_male.png", sep = ""))
   print(plot(lx.mcmc$male[,lxVars.seq[i]:
                                             (lxVars.seq[i]+3),drop = FALSE]))
   dev.off()
 }
-bitmap(width = 9, height = 7, units = "in", res = 360, pointsize = 10
+png(width = 9, height = 7, units = "in", res = 360, pointsize = 10
     ,file = paste("results/plots/traceplots/Thai_lx_traceplot20130612srb10_",
        length(lxVars.seq), "_male.png", sep = ""))
 print(plot(
