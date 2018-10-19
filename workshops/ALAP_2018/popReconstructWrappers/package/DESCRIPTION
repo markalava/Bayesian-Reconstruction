@@ -1,0 +1,27 @@
+Package: popReconstructWrappers
+Type: Package
+Title: Wrappers for Package popReconstruct, Reconstruct Human Populations of the Recent Past
+Version: 0.0.1
+Authors@R: c(person("Mark", "Wheldon", email = "wheldon@un.org", role = c("aut", "cre")))
+Description: Wrappers for pacakge popReconstruct which implements the Bayesian hierarchical model described by Wheldon, Raftery, Clark and Gerland (see: <doi:10.1080/01621459.2012.737729>) for simultaneously estimating age-specific population counts, fertility rates, mortality rates and net international migration flows, at the national level.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Imports:
+    coda,  
+    ff,
+    foreach,
+    gdata,
+    iterators,
+    lattice,
+    mvtnorm,
+    reshape
+Suggests:
+    doParallel,
+    doMC,
+    knitr,
+    rmarkdown,
+    bookdown
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.1.0
+VignetteBuilder: rmarkdown
