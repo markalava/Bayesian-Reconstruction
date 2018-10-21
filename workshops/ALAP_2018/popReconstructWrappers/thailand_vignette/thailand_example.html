@@ -9,6 +9,7 @@
 <meta name="generator" content="pandoc" />
 
 
+<meta name="author" content="Mark C. Wheldon" />
 
 <meta name="date" content="2018-10-23" />
 
@@ -316,6 +317,7 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Population Reconstruction Example. Thailand</h1>
+<h4 class="author"><em>Mark C. Wheldon</em></h4>
 <h4 class="date"><em>2018-10-23</em></h4>
 
 </div>
@@ -358,6 +360,9 @@ output:
 
 NOTE: You might need to compile it twice
 -->
+<p><strong>Affiliations:</strong> MCW: UN Population Division, <a href="mailto:wheldon@un.org">wheldon@un.org</a>.</p>
+<p><strong>Acknowledgements:</strong> This is joint work with Adrian E. Raftery (Univ. of Washignton), Samuel
+J. Clark (Ohio State Univ.), and Patrick Gerland (UN Population Division).</p>
 <p><strong>Disclaimer:</strong> The views and opinions expressed in this work are those of the authors and do not necessarily represent those of the United Nations. This work has not been formally edited and cleared by the United Nations.</p>
 <div id="background" class="section level1">
 <h1><span class="header-section-number">1</span> Background</h1>
@@ -365,7 +370,11 @@ NOTE: You might need to compile it twice
 articles: <span class="citation">Wheldon et al. (<a href="#ref-wheldon_reconstructing_2013">2013</a>)</span>, <span class="citation">Wheldon et al. (<a href="#ref-wheldon_bayesian_2016">2016</a>)</span>,
 <span class="citation">Wheldon et al. (<a href="#ref-wheldon_bayesian_2015">2015</a>)</span>. There is an associated <em>R</em> package <span class="citation">Wheldon (<a href="#ref-wheldon_popreconstruct_2014">2014</a>)</span> on <em>CRAN</em>
 but a more up-to-date version is <span class="citation">Wheldon (<a href="#ref-wheldon_bayesian-reconstruction:_2017">2017</a>)</span>.</p>
-<p>This pacakge is available from (<a href="https://github.com/markalava/Bayesian-Reconstruction/popReconstructWrappers" class="uri">https://github.com/markalava/Bayesian-Reconstruction/popReconstructWrappers</a>). It contains wrapper functions and code for two-sex population reconstruction described in <span class="citation">Wheldon et al. (<a href="#ref-wheldon_bayesian_2015">2015</a>)</span>.</p>
+<p>In this vignette I will use wrapper functions that make things much
+easier. These are available from
+(<a href="https://github.com/markalava/Bayesian-Reconstruction/popReconstructWrappers" class="uri">https://github.com/markalava/Bayesian-Reconstruction/popReconstructWrappers</a>). They
+are based on two-sex reconstruction and the example of Thailand from
+<span class="citation">(Wheldon et al. <a href="#ref-wheldon_bayesian_2015">2015</a>)</span>.</p>
 </div>
 <div id="sec:Set-Up" class="section level1">
 <h1><span class="header-section-number">2</span> Set-Up</h1>
@@ -527,9 +536,6 @@ invGam.params[1:2] </code></pre>
 ## iter  quantity
 ## ----  --------</code></pre>
 <pre class="r"><code>save(ThaiMcmc, file = file.path(&quot;poprecon&quot;, &quot;thai_mcmc.RData&quot;)) </code></pre>
-<p>A larger sample was prepared earlier:</p>
-<pre class="r"><code>## Not run
-## (load(&quot;extras_large/thai_mcmc.RData&quot;))</code></pre>
 <div id="sec:tuning" class="section level2">
 <h2><span class="header-section-number">4.1</span> Tuning</h2>
 <p>The MCMC algorithm needs to be tuned to ensure the chains have mixed well. This is indicated by Metropolis acceptance ratios. MCMC acceptance ratios between about 0.2 and 0.5 are acceptable. These can be plotted for each input parameter.</p>
@@ -578,9 +584,6 @@ try(
                       age.size = 5,
                      name.pref = &quot;Thai.&quot;,
                      name.suf = &quot;&quot;)</code></pre>
-<p>A larger sample was prepared earlier:</p>
-<pre class="r"><code>## Not run
-## (load(&quot;extras_large/Thailand_Example_Prior.RData&quot;))</code></pre>
 <pre class="r"><code>ThaiPriorCounts &lt;- post.process.recon(ThaiPrior,
            sep.factors = list(female = thaiFemale.sf
                                  ,male = thaiMale.sf),
@@ -622,12 +625,12 @@ try(
 <pre class="r"><code>## Look at a particular parameter:
 head(subset(qrecon, param == &quot;mort.rate&quot;))</code></pre>
 <pre><code>##     param.2.5pctl param.10pctl param.50pctl param.90pctl param.97.5pctl
-## 169  0.0200626423 0.0221294047  0.025742248  0.036551835    0.036658388
-## 170  0.0015797231 0.0019260613  0.002878193  0.003197583    0.003245667
-## 171  0.0007700036 0.0008956734  0.001530860  0.001615132    0.001620781
-## 172  0.0011419097 0.0012068270  0.001980069  0.002081745    0.002141832
-## 173  0.0014237044 0.0018035129  0.002853448  0.003294141    0.003306692
-## 174  0.0011067022 0.0015940078  0.003268626  0.003606679    0.004191008
+## 169  0.0223832011  0.022462917  0.025578767  0.028145707    0.028321412
+## 170  0.0019430720  0.002444299  0.003066957  0.003245484    0.003324335
+## 171  0.0009973441  0.001286549  0.001492697  0.001637653    0.001802496
+## 172  0.0015193773  0.001666833  0.001924387  0.002364114    0.002373242
+## 173  0.0020638221  0.002372634  0.002942299  0.003509152    0.004050402
+## 174  0.0022331045  0.003067107  0.003316431  0.004040984    0.004618684
 ##         legend year     param age    sex
 ## 169 init. est. 1960 mort.rate   0 female
 ## 170 init. est. 1960 mort.rate   5 female
