@@ -1,6 +1,6 @@
 ---
 title: Population Reconstruction Example. Thailand
-date: 2018-10-22
+date: 2018-10-23
 output:
   bookdown::html_document2:
      theme: readable
@@ -73,15 +73,27 @@ pn <- function(x, digits = 1, ...) {
 
 # Background
 
-This pacakge is available from (https://github.com/markalava/Bayesian-Reconstruction/popReconstructWrappers). It contains wrapper functions and code for two-sex population reconstruction described in @wheldon_bayesian_2015. 
+Bayesian population reconstruction was introduced in the following series of
+articles: @wheldon_reconstructing_2013, @wheldon_bayesian_2016,
+@wheldon_bayesian_2015. There is an associated *R* package @wheldon_popreconstruct_2014 on *CRAN*
+but a more up-to-date version is @wheldon_bayesian-reconstruction:_2017. 
+
+In this vignette I will use wrapper functions that make things much
+easier. These are available from
+(https://github.com/markalava/Bayesian-Reconstruction/popReconstructWrappers). They
+are based on two-sex reconstruction and the example of Thailand from
+[@wheldon_bayesian_2015].
 
 
 # Set-Up {#sec:Set-Up} 
 
-```{r getting-files, echo = FALSE}
+```{r getting-files, echo = TRUE, message = FALSE, warning = FALSE}
 ## Install the package
 library("devtools")
-#devtools::install_github( ... )
+
+## Not run
+## devtools::install_github(repo = "markalava/Bayesian-Reconstruction/workshops/ALAP_2018/popReconstructWrappers/package")
+
 library(popReconstructWrappers)
 
 ## Create a directory for results
@@ -106,13 +118,15 @@ setdiff(ls(), oldls)
 ```
 
 The main inputs are initial estimates of 
-- fertility 
-- migration 
-- survival
-- population counts in the baseline year
-- population counts in subsequent years
-- sex ratios at birth
-and life table 'separation factors' to separate cohort deaths into period deaths. 
+
+  - fertility 
+  - migration 
+  - survival
+  - population counts in the baseline year
+  - population counts in subsequent years
+  - sex ratios at birth
+  
+by sex, age, and year, and life table 'separation factors' to separate cohort deaths into period deaths. 
 
 Proposal variances are additional inputs that control the efficiency of the MCMC algorithm. 
 
@@ -220,13 +234,6 @@ ThaiMcmc <- do.call(pop.est.sampler, args = estModArgs)
 save(ThaiMcmc, file = file.path("poprecon", "thai_mcmc.RData")) 
 ```
 
-A larger sample was prepared earlier:
-
-```{r recon-larger-run}
-## Not run
-## (load("extras_large/ThaiMcmc.RData"))
-```
-
 ## Tuning {#sec:tuning} 
 
 The MCMC algorithm needs to be tuned to ensure the chains have mixed well. This is indicated by Metropolis acceptance ratios. MCMC acceptance ratios between about 0.2 and 0.5 are acceptable. These can be plotted for each input parameter.
@@ -235,6 +242,7 @@ The MCMC algorithm needs to be tuned to ensure the chains have mixed well. This 
 ## Not run (see below)
 ## plot.acceptance.props(ThaiMcmc)
 
+## Not run
 try(
     conditional.variances(ThaiMcmc)
     )
@@ -290,15 +298,8 @@ ThaiPrior <-
                      name.suf = "")
 ```
 
-A larger sample was prepared earlier:
-
-```{r prior-sample-larger}
-## Not run
-## (load("extras_large/Thailand_Example_Prior.RData"))
-```
 
 ```{r gen-prior-sample-larger, message = FALSE, warning = FALSE, results = "hide"}
-
 ThaiPriorCounts <- post.process.recon(ThaiPrior,
            sep.factors = list(female = thaiFemale.sf
                                  ,male = thaiMale.sf),
@@ -340,19 +341,24 @@ head(subset(qrecon, param == "mort.rate"))
 library(ggplot2)
 ```
 
-```{r plot-quantiles-tfr, fig.show = TRUE, fig.cap = "Prior and posterior 95% quantiles, and medians, for total fertility rate, Thailand, 1960--2000."}
-ggplot(subset(qrecon, param == "tfr"), aes(x = year, y = param.50pctl)) +
+```{r plot-quantiles-tfr, fig.show = FALSE, echo = TRUE}
+gp <-
+    ggplot(subset(qrecon, param == "tfr"), aes(x = year, y = param.50pctl)) +
         geom_line(aes(col = legend), size = 1.1) + geom_point(aes(col = legend)) +
     geom_ribbon(aes(ymin = param.2.5pctl, ymax = param.97.5pctl, fill = legend), alpha = 0.2) 
-``` 
+```
 
+```{r plot-quantiles-tfr-from-manu, echo = FALSE, out.width = "600px", fig.cap = "Prior and posterior 95% quantiles, and medians, for total fertility rate, Thailand, 1960--2000 [@wheldon_bayesian_2015]."}
+knitr::include_graphics("extras/img/Thai_tfr_priorpost_q95_20130612srb10.png")
+```
 
-```{r plot-quantiles-e0, fig.show = TRUE, fig.cap = "Prior and posterior 95% quantiles, and medians, for life expectancy at birth, Thailand, 1960--2000."}
-ggplot(subset(qrecon, param == "e0"), aes(x = year, y = param.50pctl)) +
-    geom_line(aes(col = legend), size = 1.1) + geom_point(aes(col = legend)) +
-    facet_wrap(facets = "sex", ncol = 1, nrow = 2) +
-    geom_ribbon(aes(ymin = param.2.5pctl, ymax = param.97.5pctl, fill = legend), alpha = 0.2) 
-``` 
+```{r plot-quantiles-e0-fem-from-manu, echo = FALSE, out.width = "600px", fig.cap = "Prior and posterior 95% quantiles, and medians, for life expectancy at birth, females, Thailand, 1960--2000 [@wheldon_bayesian_2015]."}
+knitr::include_graphics("extras/img/Thai_leb_priorpost_q95_female_20130612srb10.png")
+```
+
+```{r plot-quantiles-e0-mal-from-manu, echo = FALSE, out.width = "600px", fig.cap = "Prior and posterior 95% quantiles, and medians, for life expectancy at birth, males, Thailand, 1960--2000 [@wheldon_bayesian_2015]."}
+knitr::include_graphics("extras/img/Thai_leb_priorpost_q95_male_20130612srb10.png")
+```
 
 If you do not have the samples from the prior you can omit `results.prior` and `results.post.process.prior` (or set them to `NULL`) to get just the posterior quantiles.
 
