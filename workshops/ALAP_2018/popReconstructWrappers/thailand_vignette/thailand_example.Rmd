@@ -1,6 +1,7 @@
 ---
 title: Population Reconstruction Example. Thailand
 date: 2018-10-23
+author: Mark C. Wheldon
 output:
   bookdown::html_document2:
      theme: readable
@@ -67,6 +68,10 @@ pn <- function(x, digits = 1, ...) {
 }
 ```
 
+**Affiliations:** MCW: UN Population Division, wheldon@un.org. 
+
+**Acknowledgements:** This is joint work with Adrian E. Raftery (Univ. of Washignton), Samuel
+J. Clark (Ohio State Univ.), and Patrick Gerland (UN Population Division).
 
 **Disclaimer:** The views and opinions expressed in this work are those of the authors and do not necessarily represent those of the United Nations. This work has not been formally edited and cleared by the United Nations.
 
