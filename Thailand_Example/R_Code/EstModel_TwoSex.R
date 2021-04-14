@@ -7,6 +7,20 @@
 ### DESC:               Two-sex version of Bayesian population reconstruction
 ###                     with SRB also estimated.
 ###
+### LICENCE:            Released under the GNU General Public License v3. See the
+###                     accompanying file 'LICENSE.txt' or visit
+###                     <http://www.gnu.org/licenses/>. This code is distributed
+###                     in the hope that it will be useful, but WITHOUT ANY
+###                     WARRANTY; without even the implied warranty of
+###                     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+###                     See the GNU General Public License for more details.
+###
+### DISCLAIMER:         The views and opinions expressed in this work
+###                     are those of the authors and do not
+###                     necessarily represent those of the United
+###                     Nations. This work has not been formally
+###                     edited and cleared by the United Nations.
+###
 ###-----------------------------------------------------------------------------
 ###
 ### CHANGES

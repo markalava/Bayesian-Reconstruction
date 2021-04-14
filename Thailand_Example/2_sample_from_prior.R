@@ -17,8 +17,13 @@
 ###                     Sex Ratios of Mortality. Journal of the Royal
 ###                     Statistical Society Series A, 178(4), 977--1007.
 ###
-### LICENCE:            Released under the Creative Commons BY-NC-SA Licence
-###                     (https://creativecommons.org).
+### LICENCE:            Released under the GNU General Public License v3. See the
+###                     accompanying file 'LICENSE.txt' or visit
+###                     <http://www.gnu.org/licenses/>. This code is distributed
+###                     in the hope that it will be useful, but WITHOUT ANY
+###                     WARRANTY; without even the implied warranty of
+###                     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+###                     See the GNU General Public License for more details.
 ###
 ### DISCLAIMER:         The views and opinions expressed in this work
 ###                     are those of the authors and do not

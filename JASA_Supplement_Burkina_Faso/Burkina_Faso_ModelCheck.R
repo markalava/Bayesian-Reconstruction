@@ -19,8 +19,13 @@
 ###                     Association, 108(501),
 ###                     96–110. http://doi.org/10.1080/01621459.2012.737729
 ###
-### LICENCE:            Released under the Creative Commons BY-NC-SA Licence
-###                     (https://creativecommons.org).
+### LICENCE:            Released under the GNU General Public License v3. See the
+###                     accompanying file 'LICENSE.txt' or visit
+###                     <http://www.gnu.org/licenses/>. This code is distributed
+###                     in the hope that it will be useful, but WITHOUT ANY
+###                     WARRANTY; without even the implied warranty of
+###                     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+###                     See the GNU General Public License for more details.
 ###
 ### DISCLAIMER:         The views and opinions expressed in this work
 ###                     are those of the authors and do not
